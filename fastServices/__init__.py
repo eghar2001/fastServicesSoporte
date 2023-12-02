@@ -1,18 +1,36 @@
+import os
+
+from flask_sqlalchemy.record_queries import get_recorded_queries
+from sqlalchemy import engine
+
 from fastServices.config import Config
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+from sqlalchemy.orm import DeclarativeBase, MappedAsDataclass
 from flask import Flask
 
 
-db = SQLAlchemy()
-def create_app(config_class = Config):
+class Base(DeclarativeBase):
+    pass
+
+
+db = SQLAlchemy(model_class=Base)
+migrate = Migrate(directory= "migrations")
+
+def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(config_class)
 
     db.init_app(app)
+    migrate.init_app(app, db = db)
 
-    from fastServices.routes.user import users
+    from fastServices.models import (Direccion, FotoSolicitud, Localidad, Presupuesto, Profesion, Solicitud, Usuario,
+                                     Servicio, HorarioPresupuesto)
+
+
+
+    from fastServices.controller.user import users
 
     app.register_blueprint(users)
 
     return app
-
