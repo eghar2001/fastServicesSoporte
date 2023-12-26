@@ -56,3 +56,18 @@ class Usuario(db.Model):
         nullable = True
     )
 
+    def toDict(self):
+        usuario_dict = {
+            "id":id,
+            "nombre":self.nombre,
+            "apellido":self.apellido,
+            "email":self.email,
+            "contrasenia":self.contrasenia,
+            "fecha_nacimiento":self.fecha_nacimiento,
+            "telefono":self.telefono,
+            "esPrestador": self.esPrestador,
+            "fotoPerfil":self.fotoPerfil,
+            "foto": self.foto
+
+        }
+

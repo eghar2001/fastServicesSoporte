@@ -1,5 +1,7 @@
-from fastServices.data import profesion_data
+from fastServices.data.profesion_data import ProfesionData
 
-
-def get_profesiones():
-    return profesion_data.get_profesiones()
+class ProfesionNegocio:
+    def __init__(self):
+        self.__profesion_data = ProfesionData()
+    def get_profesiones(self):
+        return self.__profesion_data.get_profesiones()

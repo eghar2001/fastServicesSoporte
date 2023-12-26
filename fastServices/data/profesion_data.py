@@ -1,6 +1,6 @@
 from fastServices.models.profesion import Profesion
 
-
-def get_profesiones():
-    profesiones = Profesion.query.all()
-    return profesiones
+class ProfesionData:
+    def get_profesiones(self):
+        profesiones = Profesion.query.all()
+        return profesiones

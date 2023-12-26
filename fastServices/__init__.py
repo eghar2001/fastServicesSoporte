@@ -31,12 +31,12 @@ def create_app(config_class=Config):
 
 
 
-    from fastServices.controller.user import users
+
     from fastServices.controller.direccion_controller import direccion_controller
     from fastServices.controller.profesion_controller import profesion_controller
 
 
-    app.register_blueprint(users)
+
     app.register_blueprint(direccion_controller)
     app.register_blueprint(profesion_controller)
 
