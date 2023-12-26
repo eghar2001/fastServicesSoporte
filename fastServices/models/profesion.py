@@ -1,10 +1,10 @@
 from fastServices import db
-from fastServices.models.PrestadorProfesiones import prestador_profesiones
+from fastServices.models.prestador_profesiones import prestador_profesiones
 
 from sqlalchemy.orm import mapped_column, Mapped, relationship
 from sqlalchemy import Integer, String
 
-from fastServices.models.Usuario import Usuario
+from fastServices.models.usuario import Usuario
 
 
 class Profesion(db.Model):
@@ -22,7 +22,12 @@ class Profesion(db.Model):
         nullable = False
     )
 
-
+    def toDict(self):
+        dict = {
+            "id":self.id,
+            "nombre":self.nombre
+        }
+        return dict
     """
     Lo ideal seria que el prestador tenga mapeada sus profesiones, pero 
     como la entidad Usuario puede ser Prestador o simple usuario, un simple usuario

@@ -10,6 +10,8 @@ from sqlalchemy.orm import DeclarativeBase, MappedAsDataclass
 from flask import Flask
 
 
+
+
 class Base(DeclarativeBase):
     pass
 
@@ -24,13 +26,18 @@ def create_app(config_class=Config):
     db.init_app(app)
     migrate.init_app(app, db = db)
 
-    from fastServices.models import (Direccion, FotoSolicitud, Localidad, Presupuesto, Profesion, Solicitud, Usuario,
-                                     Servicio, HorarioPresupuesto)
+    from fastServices.models import (direccion, foto_solicitud, localidad, presupuesto, profesion, solicitud, usuario,
+                                     servicio, horario_presupuesto)
 
 
 
     from fastServices.controller.user import users
+    from fastServices.controller.direccion_controller import direccion_controller
+    from fastServices.controller.profesion_controller import profesion_controller
+
 
     app.register_blueprint(users)
+    app.register_blueprint(direccion_controller)
+    app.register_blueprint(profesion_controller)
 
     return app
