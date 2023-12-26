@@ -10,7 +10,8 @@ Pasos para correr el programa
 3. Crear archivo dentro de la carpeta inicial del proyecto ("fastServicesSoporte") que se llame .env
 4. Dentro de ese archivo, escribir lo siguiente "FAST_SERVICES_SOPORTE = [la connection string la bbdd que crearon]" 
     LOS CORCHETES NO SE INCLUYEN, LO REEMPLAZAN
-5. Crean variable de entorno FLASK_APP y le asignan como valor donde este ubicado el archivo
+       forma de connection string: "motorbbdd://usuario:contrasenia@host:puerto/schemabbdd"(ejemplo:                 "mysql://user:user@localhost:3306/fast_services_soporte")
+6. Crean variable de entorno llamada FLASK_APP y le asignan como valor la ruta completa del archivo 
     run.py (para crear una variable de entorno, depende del SO que tengan)
-6. corren comando $ flask db upgrade
+7. corren comando $ flask db upgrade
 
