@@ -8,8 +8,8 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from sqlalchemy.orm import DeclarativeBase, MappedAsDataclass
 from flask import Flask
-
-
+from flask_bcrypt import Bcrypt
+from flask_cors import CORS
 
 
 class Base(DeclarativeBase):
@@ -18,6 +18,8 @@ class Base(DeclarativeBase):
 
 db = SQLAlchemy(model_class=Base)
 migrate = Migrate(directory= "migrations")
+bcrypt = Bcrypt()
+cors = CORS()
 
 def create_app(config_class=Config):
     app = Flask(__name__)
@@ -25,6 +27,8 @@ def create_app(config_class=Config):
 
     db.init_app(app)
     migrate.init_app(app, db = db)
+    bcrypt.init_app(app)
+    cors.init_app(app)
 
     from fastServices.models import (direccion, foto_solicitud, localidad, presupuesto, profesion, solicitud, usuario,
                                      servicio, horario_presupuesto)
@@ -34,10 +38,12 @@ def create_app(config_class=Config):
 
     from fastServices.controller.direccion_controller import direccion_controller
     from fastServices.controller.profesion_controller import profesion_controller
+    from fastServices.controller.usuario_controller import usuario_controller
 
 
 
     app.register_blueprint(direccion_controller)
     app.register_blueprint(profesion_controller)
+    app.register_blueprint(usuario_controller)
 
     return app

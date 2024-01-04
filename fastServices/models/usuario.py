@@ -1,7 +1,14 @@
+from typing import List, Set
+
 from fastServices import db
-from sqlalchemy.orm import mapped_column,Mapped
+from sqlalchemy.orm import mapped_column, Mapped, relationship
 from datetime import datetime
 from sqlalchemy import Integer, String, Boolean,DateTime,LargeBinary
+
+from fastServices.models.direccion import Direccion
+from fastServices.models.prestador_profesiones import prestador_profesiones
+
+
 class Usuario(db.Model):
 
     __tablename__ = "usuarios"
@@ -41,12 +48,14 @@ class Usuario(db.Model):
         nullable = False
     )
 
-    esPrestador:Mapped[bool]  = mapped_column(
+    es_prestador:Mapped[bool]  = mapped_column(
         Boolean,
         nullable = False
     )
 
-    fotoPerfil:Mapped[str]  = mapped_column(
+
+
+    foto_perfil:Mapped[str]  = mapped_column(
         String(255),
         nullable = True
     )
@@ -56,6 +65,18 @@ class Usuario(db.Model):
         nullable = True
     )
 
+
+    direcciones: Mapped[Set["Direccion"]] = relationship(
+        "Direccion",
+        backref="usuario"
+    )
+
+    #Profesiones
+    #EXCLUSIVO PARA PRESTADORES
+    profesiones: Mapped[List["Profesion"]] = relationship(
+        secondary=prestador_profesiones,
+        backref="prestadores"
+    )
     def toDict(self):
         usuario_dict = {
             "id":id,
@@ -65,9 +86,9 @@ class Usuario(db.Model):
             "contrasenia":self.contrasenia,
             "fecha_nacimiento":self.fecha_nacimiento,
             "telefono":self.telefono,
-            "esPrestador": self.esPrestador,
+            "es_prestador": self.esPrestador,
             "fotoPerfil":self.fotoPerfil,
-            "foto": self.foto
+            "foto": self.foto,
 
         }
 

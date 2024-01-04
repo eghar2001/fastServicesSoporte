@@ -7,8 +7,7 @@ class Localidad(db.Model):
 
     cod_postal:Mapped[int] = mapped_column(
         Integer,
-        primary_key = True,
-        autoincrement =True
+        primary_key = True
     )
 
     nombre:Mapped[str] = mapped_column(
@@ -19,3 +18,11 @@ class Localidad(db.Model):
         String(150),
         nullable = False
     )
+
+    def __eq__(self,other):
+        if not isinstance(other, Localidad):
+            return False
+        return other.cod_postal == self.cod_postal
+
+    def __hash__(self):
+        return hash(self.cod_postal)

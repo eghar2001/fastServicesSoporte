@@ -17,6 +17,9 @@ class Direccion(db.Model):
         String(45),
         nullable=False
     )
+
+
+
     numero:Mapped[str] = mapped_column(
         String(10),
         nullable=False
@@ -43,3 +46,11 @@ class Direccion(db.Model):
         ForeignKey("localidades.cod_postal"),
         nullable = False
     )
+
+    def __eq__(self,other):
+        if not isinstance(other, Direccion):
+            return False
+        return self.calle == other.calle and self.cod_postal == other.cod_postal and self.numero == other.numero
+
+    def __hash__(self):
+        return hash((self.cod_postal, self.calle, self.numero))

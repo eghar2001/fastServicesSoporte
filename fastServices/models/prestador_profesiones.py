@@ -6,9 +6,8 @@ from fastServices import db
 prestador_profesiones = db.Table(
     "prestador_profesiones",
     Column(
-        "id_prestador", ForeignKey("usuarios.id"), primary_key = True
-    ),
+        "id_prestador", ForeignKey("usuarios.id",onupdate="CASCADE", ondelete="CASCADE"), primary_key = True    ),
     Column(
-        "id_profesion", ForeignKey("profesiones.id"),primary_key=True
+        "id_profesion", ForeignKey("profesiones.id",onupdate="CASCADE", ondelete="CASCADE"),primary_key=True
     )
 )

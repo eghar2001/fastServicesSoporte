@@ -30,6 +30,8 @@ class HorarioPresupuesto(db.Model):
     __table_args__ = (
         ForeignKeyConstraint(
             ["id_prestador","id_solicitud"],
-            ["presupuestos.id_prestador", "presupuestos.id_solicitud"]
+            ["presupuestos.id_prestador", "presupuestos.id_solicitud"],
+            onupdate="CASCADE",
+            ondelete="CASCADE"
         ),
     )

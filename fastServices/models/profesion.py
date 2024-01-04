@@ -4,7 +4,6 @@ from fastServices.models.prestador_profesiones import prestador_profesiones
 from sqlalchemy.orm import mapped_column, Mapped, relationship
 from sqlalchemy import Integer, String
 
-from fastServices.models.usuario import Usuario
 
 
 class Profesion(db.Model):
@@ -28,9 +27,13 @@ class Profesion(db.Model):
             "nombre":self.nombre
         }
         return dict
+
+    def __eq__(self, other):
+        if not isinstance(other, Profesion):
+            return False
+        return self.nombre == other.nombre
     """
     Lo ideal seria que el prestador tenga mapeada sus profesiones, pero 
     como la entidad Usuario puede ser Prestador o simple usuario, un simple usuario
     tendria una propiedad "profesiones" que no le pertenece
     """
-    prestadores:Mapped[set[Usuario]] = relationship(secondary=prestador_profesiones)
